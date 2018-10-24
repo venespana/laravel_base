@@ -25,6 +25,7 @@ class XimdexBaseServiceProvider extends EventServiceProvider
         parent::boot();
         
         $this->loadViewsFrom(__DIR__ . "/../resources/views/adminlte", 'adminlte');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'ximdex');
 
         $this->publishes([
             __DIR__ . '/../resources/views/adminlte' => resource_path('views/vendor/adminlte'),
