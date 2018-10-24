@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "jeroennoten/laravel-adminlte": "^1.24"
+        "jeroennoten/laravel-adminlte": "^1.24",
+        "nayjest/grids": "^1.3.8"
     },
     "autoload": {
         "psr-4": {
