@@ -1,6 +1,6 @@
 <?php
 
-namespace Ximdex\Controllers\Controllers;
+namespace Ximdex\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -11,7 +11,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    
     public function response($message, $data = null, $statusCode = 200)
     {
         $statusCode = $statusCode != 0 ? $statusCode : 500;
@@ -24,9 +23,11 @@ class Controller extends BaseController
                 'message' => $message,
                 $result => $data,
             ], $statusCode);
-        } else {
+        } elseif ($result === 'result'){
             $data = is_null($data) ? [] : $data;
             $response = $response->view($message, $data, $statusCode);
+        } else {
+            abort($statusCode, $message);
         }
 
         return $response;
