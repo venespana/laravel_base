@@ -1,0 +1,26 @@
+{
+    "name": "ximdex/base",
+    "description": "Basic files to any ximdex project",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Alejandro de Tovar",
+            "email": "venespana159@gmail.com"
+        }
+    ],
+    "require": {
+        "jeroennoten/laravel-adminlte": "^1.24"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ximdex\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ximdex\\XimdexBaseServiceProvider"
+            ]
+        }
+    }
+}
