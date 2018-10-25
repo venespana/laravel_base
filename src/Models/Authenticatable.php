@@ -2,6 +2,7 @@
 
 namespace Ximdex\Models;
 
+use Ximdex\Traits\Tokenizer;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -16,11 +17,12 @@ class Authenticatable extends Model implements
     CanResetPasswordContract
 {
     use Notifiable, TraitAuthenticatable, Authorizable, CanResetPassword;
+    use Tokenizer;
 
     public static function create(array $attributes)
     {
-        $attributes['api_token'] = User::generateToken();
-        $attributes['password'] = Hash::make($attributes['password']);
+        $attributes['api_token'] = static::generateToken();
+        $attributes['password'] = \Hash::make($attributes['password']);
         $model = static::query()->create($attributes);
         return $model;
     }
