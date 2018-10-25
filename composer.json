@@ -1,5 +1,5 @@
 {
-    "name": "venespana/laravel_base",
+    "name": "vd/laravel_base",
     "description": "Basic files to any ximdex project",
     "type": "library",
     "authors": [
@@ -14,13 +14,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Venespana\\": "src/"
+            "VD\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Venespana\\VenespanaBaseServiceProvider"
+                "VD\\BaseServiceProvider"
             ]
         }
     }
