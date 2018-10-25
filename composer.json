@@ -1,6 +1,6 @@
 {
     "name": "vd/laravel_base",
-    "description": "Basic files to any ximdex project",
+    "description": "Basic files to any Laravel project",
     "type": "library",
     "authors": [
         {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Ximdex;
+namespace VD;
 
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
-class XimdexBaseServiceProvider extends EventServiceProvider
+class BaseServiceProvider extends EventServiceProvider
 {
 
     /**
@@ -25,7 +25,7 @@ class XimdexBaseServiceProvider extends EventServiceProvider
         parent::boot();
         
         $this->loadViewsFrom(__DIR__ . "/../resources/views/adminlte", 'adminlte');
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'ximdex');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'VD');
 
         $this->publishes([
             __DIR__ . '/../resources/views/adminlte' => resource_path('views/vendor/adminlte'),

@@ -31,7 +31,7 @@ trait TableTrait
             }
             $data = (new TableForm($model, $columns, $filters))->generate();
         } catch (\Exception $ex) {
-            $message = __('ximdex::http.422', [
+            $message = __('VD::http.422', [
                 'file' => $ex->getFile(),
                 'line' => $ex->getLine(),
                 'message' => "With Message: {$ex->getMessage()}"
