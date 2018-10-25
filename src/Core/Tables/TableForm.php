@@ -1,15 +1,15 @@
 <?php
 
-namespace Ximdex\Core\Tables;
+namespace VD\Core\Tables;
 
 use Nayjest\Grids\Grid;
-use Ximdex\Core\Forms\Form;
+use VD\Core\Forms\Form;
 use Nayjest\Grids\GridConfig;
 use Illuminate\Support\Carbon;
 use Nayjest\Grids\FieldConfig;
 use Nayjest\Grids\FilterConfig;
 use Illuminate\Database\Eloquent\Model;
-use Ximdex\Core\GridProviders\EloquentDataProvider;
+use VD\Core\GridProviders\EloquentDataProvider;
 
 class TableForm extends Form
 {

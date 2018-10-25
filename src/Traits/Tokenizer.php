@@ -1,6 +1,6 @@
 <?php
 
-namespace Ximdex\Traits;
+namespace VD\Traits;
 
 trait Tokenizer
 {

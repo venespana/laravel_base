@@ -1,8 +1,8 @@
 <?php
 
-namespace Ximdex\Models;
+namespace VD\Models;
 
-use Ximdex\Traits\Tokenizer;
+use VD\Traits\Tokenizer;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;

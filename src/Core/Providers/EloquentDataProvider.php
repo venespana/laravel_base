@@ -1,6 +1,6 @@
 <?php
 
-namespace Ximdex\Core\Providers;
+namespace VD\Core\Providers;
 
 use Illuminate\Support\Carbon;
 use Nayjest\Grids\EloquentDataProvider as NayjestEloquentDataProvider;

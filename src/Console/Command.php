@@ -1,6 +1,6 @@
 <?php
 
-namespace Ximdex\Console;
+namespace VD\Console;
 
 use Illuminate\Console\Parser;
 use Illuminate\Console\Command as BaseCommand;

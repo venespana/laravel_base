@@ -1,6 +1,6 @@
 <?php
 
-namespace Ximdex\Controllers;
+namespace VD\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

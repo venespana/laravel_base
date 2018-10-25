@@ -1,9 +1,9 @@
 <?php
 
-namespace Ximdex\Controllers\Traits;
+namespace VD\Controllers\Traits;
 
-use Ximdex\Core\Tables\TableForm;
-use Ximdex\Controllers\Controller;
+use VD\Core\Tables\TableForm;
+use VD\Controllers\Controller;
 
 trait TableTrait
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ximdex\Models;
+namespace VD\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as BaseModel;

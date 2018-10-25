@@ -1,6 +1,6 @@
 <?php
 
-namespace Ximdex\Core\Forms;
+namespace VD\Core\Forms;
 
 use Illuminate\Database\Eloquent\Model;
 
