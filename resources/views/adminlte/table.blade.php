@@ -11,5 +11,5 @@
 @section('box-header', 'List')
 
 @section('box-content')
-    {!! $grid !!}
+    {!! $table !!}
 @endsection
