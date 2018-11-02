@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 use Nayjest\Grids\FieldConfig;
 use Nayjest\Grids\FilterConfig;
 use Illuminate\Database\Eloquent\Model;
-use VD\Core\GridProviders\EloquentDataProvider;
+use VD\Core\Providers\EloquentDataProvider;
 
 class TableForm extends Form
 {
@@ -108,7 +108,7 @@ class TableForm extends Form
                         'pk' => 'id',
                         'fk' => "{$key}_id"
                     ];
-                } else if (is_array($relation) && (!isset($data['relation']['ignore']) || $data['relation']['ignore'] === false)) {
+                } elseif (is_array($relation) && (!isset($data['relation']['ignore']) || $data['relation']['ignore'] === false)) {
                     $rel = $key;
                     if (isset($data['relation']['table'])) {
                         $rel = $data['relation']['table'];
@@ -177,8 +177,7 @@ class TableForm extends Form
         return $this->grid;
     }
 
-    private
-    function addFilter(FieldConfig &$_field, string $name, string $operator, string $view = null, $_filter = false)
+    private function addFilter(FieldConfig &$_field, string $name, string $operator, string $view = null, $_filter = false)
     {
         if (!defined(FilterConfig::class . "::{$operator}")) {
             $operator = static::LIKE;
@@ -271,7 +270,7 @@ class TableForm extends Form
             ];
         }
 
-        $html = view('tables.actions', compact('links'))->render();
+        $html = view('grid::actions', compact('links'))->render();
         return $html;
     }
 }

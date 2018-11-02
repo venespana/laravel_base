@@ -7,19 +7,51 @@ use VD\Controllers\Controller;
 
 trait TableTrait
 {
-    protected $filters = null;
     protected $name = null;
-    protected $title = '';
+    protected $title = 'List';
+    protected $header = null;
+    protected $view = 'adminlte::table';
 
     protected static $formModel = null;
 
     /**
-     * Display a listing of the resource.
+     * Set table header text
      *
-     * @return \Illuminate\Http\Response
+     * @param string $header
+     * @return self
      */
-    protected function table($model, array $columns = [], array $filters = [])
+    public function setHeader(string $header) : self
     {
+        $this->header = $header;
+        return $this;
+    }
+
+    /**
+     * get Table header text
+     *
+     * @return string
+     */
+    public function getHeader() : string
+    {
+        $header = $this->header;
+        if (is_null($header)) {
+            $header = class_basename($this);
+            $header = str_replace('Controller', '', $header);
+        }
+        return $header;
+    }
+
+    /**
+     * Prepare data from model in table view
+     *
+     * @param mixed $model
+     * @param array $columns
+     * @param callable|null $filters
+     * @return array
+     */
+    protected function table($model, array $columns = [], ?callable $filters = null) : array
+    {
+        $message = $this->view;
         $data = null;
         $statusCode = 200;
 
@@ -29,7 +61,11 @@ trait TableTrait
             } elseif (is_string($model)) {
                 $model = new $model;
             }
-            $data = (new TableForm($model, $columns, $filters))->generate();
+            $data = [
+                'table' => (new TableForm($model, $columns, $filters))->generate(),
+                'title' => $this->title,
+                'header' => $this->getHeader()
+            ];
         } catch (\Exception $ex) {
             $message = __('VD::http.422', [
                 'file' => $ex->getFile(),
