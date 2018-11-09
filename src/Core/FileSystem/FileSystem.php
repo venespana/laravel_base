@@ -2,7 +2,10 @@
 
 namespace VD\Core\FileSystem;
 
+use Carbon\Carbon;
 use VD\Core\FileSystem\MimeTypes;
+use Xfind\Core\Utils\DateHelpers;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -50,19 +53,35 @@ class FileSystem
         return config("disks.{$this->disk}");
     }
 
+    public function getStorage()
+    {
+        return Storage::disk($this->disk);
+    }
+
     public function files(string $directory = '')
     {
-        return Storage::disk($this->disk)->files($directory);
+        return $this->getStorage()->files($directory);
     }
 
     public function directories(string $directory = '')
     {
-        return Storage::disk($this->disk)->directories($directory);
+        return $this->getStorage()->directories($directory);
+    }
+
+    public function getIn(string $path = '')
+    {
+        return array_merge($this->directories($path), $this->files($path));
+    }
+
+    public function isFile(string $path)
+    {
+        $result = $this->get($path);
+        return (bool)$result;
     }
 
     public function exists(string $path) : bool
     {
-        return Storage::disk($this->disk)->exists($path);
+        return $this->getStorage()->exists($path);
     }
 
     public function get(string $path)
@@ -71,35 +90,53 @@ class FileSystem
             throw new FileNotFoundException("File not found on Disk: {$this->disk} at Path: {$path}");
         }
 
-        return Storage::disk($this->disk)->get($path);
+        return $this->getStorage()->get($path);
     }
 
-    public function fileData(string $file)
+    public function type($data)
     {
-        if (!$this->exists($file)) {
-            throw new FileNotFoundException("File not found on Disk: {$this->disk} at Path: {$file}");
+        $mimeTypes = new MimeTypes();
+        $type = $mimeTypes->getGroup($data);
+        return $type;
+    }
+
+    public function fileData(string $path)
+    {
+        if (!$this->exists($path)) {
+            throw new FileNotFoundException("File not found on Disk: {$this->disk} at Path: {$path}");
         }
 
-        $info = pathinfo($file);
-        $mimeTypes = new MimeTypes();
-        $extension = $info['extension'] ?? null;
-        $type = $mimeTypes->getGroup($extension);
+        $info = pathinfo($path);        
+        $extension = $info['extension'] ?? '';
+        $type = $this->type($extension);
         
         $data = [
-            'name' => $info['basename'] ?? $file,
+            'name' => $info['basename'] ?? $path,
             'extension' => $extension,
+            'fullpath' => $this->fullPath($path),
             'path' => $info['dirname'] ?? null,
-            'size' => $this->size($file),
-            'mimetype' => $mimeTypes->getMimeType($extension),
+            'bytes' => $this->size($path),
+            'size' => $this->size($path, true),
+            'mimetype' => (new MimeTypes)->getMimeType($extension),
             'type' => $type,
+            'updated_at' => DateHelpers::parse($this->getStorage()->lastModified($path))
         ];
 
-        return array_merge($data, $this->extraData($type, $file));
+        return array_merge($data, $this->extraData($type, $path));
     }
 
-    protected function size(string $path) : string
+    protected function fullPath($path)
     {
-        return $this->humanSize(Storage::disk($this->disk)->size($path));
+        return $this->getStorage()->getDriver()->getAdapter()->applyPathPrefix($path);
+    }
+
+    protected function size(string $path, bool $human = false) : string
+    {
+        $result = Storage::disk($this->disk)->size($path);
+        if ($human) {
+            $result = $this->humanSize($result);
+        }
+        return $result;
     }
 
     protected function humanSize(int $bytes, int $decimals = 2)
@@ -133,5 +170,16 @@ class FileSystem
         ];
 
         return array_merge($data, $iptc, $exif);
+    }
+
+    protected function tmp($file)
+    {
+        $hash =  uniqid();
+        $tmp = 'tmp';
+        
+
+        $stream = $this->getStorage()->getDriver()->readStream($file);
+        Storage::put("{$tmp}/{$hash}", $stream);
+        return storage_path("app/{$tmp}/{$hash}");
     }
 }
