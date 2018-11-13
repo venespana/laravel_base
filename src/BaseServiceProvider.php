@@ -51,5 +51,6 @@ class BaseServiceProvider extends EventServiceProvider
 		AliasLoader::getInstance()->alias('Form', 'Collective\Html\FormFacade');
 		AliasLoader::getInstance()->alias('HTML', 'Collective\Html\HtmlFacade');
 		AliasLoader::getInstance()->alias('Grids', 'Nayjest\Grids\Grids');
+		AliasLoader::getInstance()->alias('FormBuilder', 'Kris\LaravelFormBuilder\Facades\FormBuilder');
     }
 }
