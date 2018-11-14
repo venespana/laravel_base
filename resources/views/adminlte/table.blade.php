@@ -8,7 +8,7 @@
     @endsection
 @endif
 
-@section('box-header', 'List')
+@section('box-header', $header)
 
 @section('box-content')
     {!! $table !!}

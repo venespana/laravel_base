@@ -90,7 +90,9 @@
 
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-
+                @if(config('adminlte.user-panel'))
+                    @include('adminlte::partials.user-panel')
+                @endif
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
@@ -107,18 +109,24 @@
             <div class="container">
             @endif
 
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                @yield('content_header')
-            </section>
+            @if(View::hasSection('custom-content'))
+                @yield('custom-content')
+            @else
 
-            <!-- Main content -->
-            <section class="content">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    @yield('content_header')
+                </section>
 
-                @yield('content')
+                <!-- Main content -->
+                <section class="content">
 
-            </section>
-            <!-- /.content -->
+                    @yield('content')
+
+                </section>
+                <!-- /.content -->
+            @endif
+
             @if(config('adminlte.layout') == 'top-nav')
             </div>
             <!-- /.container -->

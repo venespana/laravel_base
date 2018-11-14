@@ -4,6 +4,7 @@ namespace VD;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class BaseServiceProvider extends EventServiceProvider
 {
@@ -23,9 +24,7 @@ class BaseServiceProvider extends EventServiceProvider
     public function boot()
     {
         parent::boot();
-        
-        $this->loadViewsFrom(__DIR__ . "/../resources/views/adminlte", 'adminlte');
-        $this->loadViewsFrom(__DIR__ . "/../resources/views/grid", 'grid');
+        $this->blade();
         
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'VD');
 
@@ -52,5 +51,18 @@ class BaseServiceProvider extends EventServiceProvider
 		AliasLoader::getInstance()->alias('HTML', 'Collective\Html\HtmlFacade');
 		AliasLoader::getInstance()->alias('Grids', 'Nayjest\Grids\Grids');
 		AliasLoader::getInstance()->alias('FormBuilder', 'Kris\LaravelFormBuilder\Facades\FormBuilder');
+    }
+
+    private function blade()
+    {
+        $this->loadViewsFrom(__DIR__ . "/../resources/views/adminlte", 'adminlte');
+        $this->loadViewsFrom(__DIR__ . "/../resources/views/grid", 'grid');
+
+        $path = __DIR__ . "/../resources/views/adminlte/components";
+        foreach (glob("{$path}/*.php") as $file) {
+            $file = str_replace("{$path}/", '', $file);
+            $name = str_replace('.blade', '', str_replace('.php', '', $file));
+            Blade::component("adminlte::components.{$name}", $name);
+        }
     }
 }
