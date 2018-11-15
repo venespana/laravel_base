@@ -82,7 +82,7 @@ abstract class Enums
         $values = [];
         foreach (static::data() as $key => $info) {
             if (!in_array($key, $less)) {
-                $values[$key] = $info[$attribute];
+                $values[$key] = is_array($info) ? $info[$attribute] : $info;
             }
         }
         return $values;
