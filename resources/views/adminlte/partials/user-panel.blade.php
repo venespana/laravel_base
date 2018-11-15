@@ -4,8 +4,8 @@
     </div>
     <div class="pull-left info">
         <p>{{ auth()->user()->fullname }}</p>
-        <a href="/user">
-            <i class="fa fa-fw fa-user"></i>
+        <a href="/user">  
+            @faicon('user')
             Profile
         </a>
     </div>
