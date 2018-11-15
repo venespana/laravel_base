@@ -213,15 +213,7 @@ class TableForm extends Form
         $date = $value->format($format);
         return $date;
     }
-
-    protected static function color(string $value)
-    {
-        $text_color = color_is_ligth($value) ? '#000000' : '#FFFFFF';
-        $style = 'background-color: #' . $value . '; color: ' . $text_color . '; padding: 5px; font-weigth: bold; text-align: center;';
-        $tag = '<aside  class="color-block" style="' . $style . '" >#' . $value . '</aside>';
-        return $tag;
-    }
-
+    
     protected static function actions(string $value, Model $model)
     {
         $route = route_name();
@@ -234,7 +226,7 @@ class TableForm extends Form
             $links[] = [
                 'href' => route("{$route}.show", ['id' => $value]),
                 'target' => '_self',
-                'class' => 'actions view fas fa-eye'
+                'class' => 'actions view fas fa-eye text-primary'
             ];
         }
 
@@ -242,7 +234,7 @@ class TableForm extends Form
             $links[] = [
                 'href' => route("{$route}.edit", ['id' => $value]),
                 'target' => '_self',
-                'class' => 'actions edit fas fa-edit'
+                'class' => 'actions edit fas fa-edit text-primary'
             ];
         }
 
@@ -250,14 +242,14 @@ class TableForm extends Form
             $links[] = [
                 'href' => route("{$route}.duplicate", ['id' => $value]),
                 'target' => '_self',
-                'class' => 'actions view fas fa-copy'
+                'class' => 'actions view fas fa-copy text-warning'
             ];
         }
 
         if (\Route::has("{$route}.delete")) {
             $links[] = [
                 'target' => '_self',
-                'class' => 'actions delete fas fa-trash',
+                'class' => 'actions delete fas fa-trash text-danger',
                 'modal' => [
                     'label' => __('globals.delete_modal_title', ['type' => __("globals.{$route}"), 'value' => $title]),
                     'body' => __('globals.delete_modal_body'),
