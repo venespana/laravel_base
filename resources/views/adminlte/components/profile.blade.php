@@ -8,13 +8,15 @@
             <div class="widget-user-image">
               <img class="img-circle" src="{{ $img }}" alt="{{ $name.' profile photo' }}">
             </div>
-            <div class="box-footer">
-                @list
-                    @slot('wrapper', ['class' => 'list-group list-group-unbordered'])
-                    @slot('attr', ['class' => 'list-group-item'])
-                    @slot('list', $list)
-                @endlist
-            </div>
+            @isset($list)
+                <div class="box-footer">
+                    @list
+                        @slot('wrapper', ['class' => 'list-group list-group-unbordered'])
+                        @slot('attr', ['class' => 'list-group-item'])
+                        @slot('list', $list)
+                    @endlist
+                </div>
+            @endisset
         </div>
     @break
         
@@ -28,14 +30,15 @@
               <h3 class="widget-user-username">{{ $name }}</h3>
               <h5 class="widget-user-desc">{{ $desc }}</h5>
             </div>
-            <div class="box-footer no-padding">
-                @list
-                    @slot('wrapper', ['class' => 'nav nav-stacked'])
-                    @slot('attr', ['class' => 'list-group-item'])
-                    @slot('list', $list)
-                @endlist
-              
-            </div>
+            @isset($list)
+                <div class="box-footer no-padding">
+                    @list
+                        @slot('wrapper', ['class' => 'nav nav-stacked'])
+                        @slot('attr', ['class' => 'list-group-item'])
+                        @slot('list', $list)
+                    @endlist      
+                </div>
+            @endisset
         </div>
     @break
 
